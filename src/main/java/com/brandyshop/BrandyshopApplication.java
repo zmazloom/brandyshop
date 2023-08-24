@@ -1,14 +1,13 @@
 package com.brandyshop;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * The main class of project
@@ -17,12 +16,10 @@ import org.springframework.context.annotation.Bean;
  * @since 2023-08-24
  */
 
-@OpenAPIDefinition(
-        servers = {@Server(url = "${project.url.config}")},
-        info = @Info(title = "${swagger.title}", version = "${server.version.code}", description = "${swagger.description}"))
-@SpringBootApplication(exclude = {
-        org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class,
-        HibernateJpaAutoConfiguration.class})
+@SpringBootApplication
+@EnableConfigurationProperties
+@EntityScan(basePackages = {"com.brandyshop.domain.data"})
+@EnableJpaRepositories(basePackages = {"com.brandyshop"})
 public class BrandyshopApplication {
 
     private static String sessionId;
