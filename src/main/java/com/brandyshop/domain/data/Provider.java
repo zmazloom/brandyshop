@@ -1,6 +1,6 @@
 package com.brandyshop.domain.data;
 
-import com.brandyshop.domain.request.BrandRequest;
+import com.brandyshop.domain.request.ProviderRequest;
 import com.brandyshop.utils.ModelUtils;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,8 +17,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "BRANDYSHOP_BRAND")
-public class Brand {
+@Table(name = "BRANDYSHOP_PROVIDER")
+public class Provider {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,24 +33,28 @@ public class Brand {
     @UpdateTimestamp
     private Date updated;
 
-    @Column(name = "NAME", nullable = false, unique = true)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "DISPLAY_NAME")
-    private String displayName;
+    @Lob
+    @Column(name = "DESCRIPTION")
+    private String description;
 
-    @Column(name = "LOGO")
-    private String logo;
+    @Column(name = "LINK")
+    private String link;
+
+    @Column(name = "RATE")
+    private Integer rate;
 
     @Column(name = "REMOVED", columnDefinition = "boolean default false")
     private boolean removed;
 
 
-    public static Brand from(BrandRequest.BrandCreate brandRequest) {
-        if (brandRequest == null)
+    public static Provider from(ProviderRequest.ProviderCreate providerRequest) {
+        if (providerRequest == null)
             return null;
 
-        return ModelUtils.getModelMapper().map(brandRequest, Brand.class);
+        return ModelUtils.getModelMapper().map(providerRequest, Provider.class);
     }
 
 }
