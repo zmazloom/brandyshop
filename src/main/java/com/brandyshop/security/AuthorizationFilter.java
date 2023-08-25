@@ -51,7 +51,7 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
                 SocketPrincipal socketPrincipal = null;
 
-                if (token.equals("abcd")) {
+                if (token.equals("brandyshop123!@#")) {
                     authorities.add(new SimpleGrantedAuthority("ROLE_" + "ADMIN"));
 
                     socketPrincipal = SocketPrincipal.builder()
