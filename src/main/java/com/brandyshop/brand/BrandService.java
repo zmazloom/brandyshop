@@ -95,7 +95,7 @@ public class BrandService {
         Brand brand = brandRepository.getBrandById(brandId);
 
         if (brand == null)
-            throw ResourceNotFoundException.getInstance("برند پیدا نشد.");
+            throw ResourceNotFoundException.getInstance("برند با شناسه " + brandId + " پیدا نشد.");
 
         return brand;
     }

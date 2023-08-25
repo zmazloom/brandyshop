@@ -33,7 +33,7 @@ public class Category {
     @UpdateTimestamp
     private Date updated;
 
-    @Column(name = "NAME", nullable = false, unique = true)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
     @Column(name = "DISPLAY_NAME")

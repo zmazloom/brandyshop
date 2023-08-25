@@ -19,7 +19,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/brands")
+@RequestMapping("/admin/brands")
 @Api(tags = {"Brand"})
 @SwaggerDefinition(tags = {
         @Tag(name = "Brand", description = "Brand APIs")
@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @PreAuthorize("hasAnyRole('ADMIN')")
-public class BrandController {
+public class BrandAdminController {
 
     private final BrandService brandService;
 

@@ -19,7 +19,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/providers")
+@RequestMapping("/admin/providers")
 @Api(tags = {"Provider"})
 @SwaggerDefinition(tags = {
         @Tag(name = "Provider", description = "Provider APIs")
@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @PreAuthorize("hasAnyRole('ADMIN')")
-public class ProviderController {
+public class ProviderAdminController {
 
     private final ProviderService providerService;
 

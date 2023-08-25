@@ -21,20 +21,20 @@ public class ProviderService {
 
     private final ProviderRepository providerRepository;
 
-    public ProviderSrv createProvider(ProviderRequest.ProviderCreate providerProviderCreateRequest) {
-        validateProviderCreate(providerProviderCreateRequest);
+    public ProviderSrv createProvider(ProviderRequest.ProviderCreate providerRequest) {
+        validateProviderCreate(providerRequest);
 
-        Provider provider = Provider.from(providerProviderCreateRequest);
+        Provider provider = Provider.from(providerRequest);
 
         providerRepository.saveAndFlush(provider);
 
         return ProviderSrv.from(provider);
     }
 
-    public ProviderSrv updateProvider(Long providerId, ProviderRequest.ProviderUpdate providerProviderUpdateRequest) {
+    public ProviderSrv updateProvider(Long providerId, ProviderRequest.ProviderUpdate providerRequest) {
         Provider provider = getAndCheckProvider(providerId);
 
-        validateAndFillProviderUpdate(provider, providerProviderUpdateRequest);
+        validateAndFillProviderUpdate(provider, providerRequest);
 
         providerRepository.saveAndFlush(provider);
 
@@ -102,7 +102,7 @@ public class ProviderService {
         Provider provider = providerRepository.getProviderById(providerId);
 
         if (provider == null)
-            throw ResourceNotFoundException.getInstance("تامین کننده پیدا نشد.");
+            throw ResourceNotFoundException.getInstance("تامین کننده با شناسه " + providerId + " پیدا نشد.");
 
         return provider;
     }

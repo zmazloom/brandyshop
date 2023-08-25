@@ -19,7 +19,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("/admin/categories")
 @Api(tags = {"Category"})
 @SwaggerDefinition(tags = {
         @Tag(name = "Category", description = "Category APIs")
@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @PreAuthorize("hasAnyRole('ADMIN')")
-public class CategoryController {
+public class CategoryAdminController {
 
     private final CategoryService categoryService;
 

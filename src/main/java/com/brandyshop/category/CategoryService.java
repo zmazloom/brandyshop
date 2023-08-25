@@ -91,7 +91,7 @@ public class CategoryService {
         Category category = categoryRepository.getCategoryById(categoryId);
 
         if (category == null)
-            throw ResourceNotFoundException.getInstance("دسته بندی پیدا نشد.");
+            throw ResourceNotFoundException.getInstance("دسته بندی با شناسه " + categoryId + " پیدا نشد.");
 
         return category;
     }

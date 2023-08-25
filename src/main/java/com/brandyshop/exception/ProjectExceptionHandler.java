@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.Calendar;
@@ -66,6 +68,27 @@ public class ProjectExceptionHandler extends ResponseEntityExceptionHandler impl
             return handleExceptionInternal(InternalServerException.getInstance("خطای ناشناخته"),
                     headers, status, request);
         }
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ApiErrorVO> constraintValidationHandler(WebRequest request,
+                                                                  ConstraintViolationException exception) {
+
+        log.error(exception.getMessage());
+
+        String message = (exception.getConstraintViolations() != null &&
+                exception.getConstraintViolations().stream().findFirst().isPresent())
+                ? exception.getConstraintViolations().stream().findFirst().get().getMessageTemplate()
+                : exception.getMessage();
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+
+        return handleExceptionInternal(
+                InvalidRequestException.getInstance(message),
+                new HttpHeaders(),
+                status,
+                request
+        );
     }
 
     /**
